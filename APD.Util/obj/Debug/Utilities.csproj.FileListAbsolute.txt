@@ -1,0 +1,6 @@
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\bin\Debug\Utilities.XML
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\bin\Debug\Utilities.dll
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\bin\Debug\Utilities.pdb
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\obj\Debug\Utilities.csprojResolveAssemblyReference.cache
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\obj\Debug\Utilities.dll
+C:\Users\Gabriel Vicente\Downloads\Samples.CSharp.20110210\Samples.CSharp.20110210\CSharp\Utilities\obj\Debug\Utilities.pdb

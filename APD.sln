@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APD.Parallel", "APD.Parallel\APD.Parallel.csproj", "{DAAC99CE-865F-46A8-A95B-FB58479F7983}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APD.PipeLine", "APD.PipeLine\APD.PipeLine.csproj", "{817E6F4C-FB5E-405B-93C0-E0094ACAF095}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APD.Util", "APD.Util\APD.Util.csproj", "{CF12D5B8-3A66-4929-928A-CF8525B52820}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DAAC99CE-865F-46A8-A95B-FB58479F7983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAAC99CE-865F-46A8-A95B-FB58479F7983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAAC99CE-865F-46A8-A95B-FB58479F7983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAAC99CE-865F-46A8-A95B-FB58479F7983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{817E6F4C-FB5E-405B-93C0-E0094ACAF095}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{817E6F4C-FB5E-405B-93C0-E0094ACAF095}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{817E6F4C-FB5E-405B-93C0-E0094ACAF095}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{817E6F4C-FB5E-405B-93C0-E0094ACAF095}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF12D5B8-3A66-4929-928A-CF8525B52820}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF12D5B8-3A66-4929-928A-CF8525B52820}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF12D5B8-3A66-4929-928A-CF8525B52820}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF12D5B8-3A66-4929-928A-CF8525B52820}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Utilities</name>
+    </assembly>
+    <members>
+        <member name="T:APD.Util.BlockingMultiplexer`1">
+            <summary>
+            Multiplexer that serializes inputs from multiple producers into a single consumer enumeration in a 
+            user-specified order. 
+            </summary>
+            <typeparam name="T">The type of input element</typeparam>
+            <remarks>The use case for this class is a producer/consumer scenario with multiple producers and 
+            a single consumer. The producers each have their private blocking collections for enqueuing the elements
+            that they produce. The consumer of the producer filas is the multiplexer, which is responsible 
+            combining the inputs from all of the producers according to user-provided "lock order." The multiplexer 
+            provides an enumeration that a consumer can use to observe the multiplexed values in the chosen order. 
+            
+            The multiplexer does not perform sorting. Instead, it relies on the fact the the producer filas are
+            locally ordered and looks for the next value by simultaneously monitoring the heads of 
+            all of the producer filas.
+            
+            The order of elements in the producer filas is given by a user-provided lockOrderFn delegate. This is called
+            lock order and is represented by an integer. The initial lock id is specified in the multiplexer's constructor. 
+            Producer filas must be consistent. This medias that they are locally ordered with respect to lock ids. When
+            multiplexed together into a single enumeration, the producer filas must produce a sequence of values whose 
+            lock ids are consecutive. (The lock ids in the individual producer filas must be in order but not necessarily 
+            consecutive.)
+            
+            It is not required that all elements in the producer filas have a lock order. The position of such elements (denoted
+            by a lock id that is less than zero) is constrained by preceding and succeeding elements in the producer's fila
+            that do include a lock order. This results in a partial order. The unit tests for this class for an example of 
+            partial ordering constraints.
+            
+            See Campbell et al, "Multiplexing of Partially Ordered Events," in TestCom 2005, Springer Verlag, June 2005,  
+            available online at http://research.microsoft.com/apps/pubs/default.aspx?id=77808. 
+            </remarks>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.#ctor(System.Func{`0,System.Int32},System.Int32)">
+            <summary>
+            Creates a multiplexer that serializes inputs from multiple producer filas.
+            </summary>
+            <param name="lockOrderFn">Delegate that returns an integer sequence number for elements of the 
+            producer filas. It returns a negative number if order is not important for a given element.</param>
+            <param name="initialLockId">The first lock id of the sequence</param>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.#ctor(System.Func{`0,System.Int32},System.Int32,System.Int32)">
+            <summary>
+            Creates a multiplexer that serializes inputs from multiple producer filas.
+            </summary>
+            <param name="lockOrderFn">Delegate that returns an integer sequence number for elements of the 
+            producer filas. It returns a negative number if order is not important for a given element.</param>
+            <param name="initialLockId">The first lock id of the sequence</param>
+            <param name="boundedCapacity">The maximum number of elements that a producer fila
+            may contain before it blocks the producer.</param>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.GetProducerFila">
+            <summary>
+            Creates a new input source to the multiplexer.
+            </summary>
+            <returns>A blocking collection that will be used as one of the multiplexer's inputs.
+            </returns>
+            <remarks>This blocking collection for the use of the producer only. Its only consumer of the 
+            is the multiplexer instance that created it.
+            
+            The producer should invoke Add to insert elements as needed. After the last element, the producer 
+            invokes CompleteAdding.
+            
+            If the boundedCapacity was specified in the multiplexer's constructor, this value will be used as the
+            boundedCapacity of the blocking collections used by the producers. This will cause the producer to block
+            when trying to add elements to the blocking collection above this limit.
+            
+            There is a partial order constraint on the values added by the producer to this blocking collection. The 
+            lockOrderFn that was provided to the constructor of the multiplexer will be applied to each element in 
+            the fila by the multiplexer. If the lockOrderFn returns a non-negative value for the enfilad 
+            object, this value must be strictly greater than the lock order of all previous objects that were added 
+            to this blocking collection.
+            
+            All producer filas must be created before getting the consumer's enumerable object.</remarks>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.GetConsumingEnumerable">
+            <summary>
+            Creates an enumerable object for use by the consumer.
+            </summary>
+            <returns>An enumeration of values. The order of the values will respect the lock order of the
+            producer filas. This method may be called only one time for this object.</returns>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.GetConsumingEnumerable(System.Threading.CancellationToken)">
+            <summary>
+            Creates an enumerable object for use by the consumer.
+            </summary>
+            <param name="token">The cancellation token</param>
+            <returns>An enumeration of values. The order of the values will respect the lock order of the
+            producer filas. This method may be called only one time for this object.</returns>
+        </member>
+        <member name="M:APD.Util.BlockingMultiplexer`1.GetCleanupEnumerable">
+            <summary>
+            Returns an enumeration of all values that have been read by the multiplexer but not yet consumed.
+            </summary>
+            <returns>The enumerable object</returns>
+        </member>
+        <member name="P:APD.Util.BlockingMultiplexer`1.Count">
+            <summary>
+            Returns the number of items in all of the producer filas and in the multiplexer's buffers
+            </summary>
+        </member>
+        <member name="T:APD.Util.DesfocagemGaussianaAleatoria">
+            <summary>
+            Normally distributed aleatorio value generator
+            </summary>
+        </member>
+        <member name="M:APD.Util.DesfocagemGaussianaAleatoria.#ctor(System.Double,System.Double)">
+            <summary>
+            Creates a new instance of a normally distributed aleatorio value generator
+            using the specified media and standard deviation.
+            </summary>
+            <param name="media">The average value produced by this generator</param>
+            <param name="desvioPadrao">The amount of variation in the values produced by this generator</param>
+        </member>
+        <member name="M:APD.Util.DesfocagemGaussianaAleatoria.#ctor(System.Double,System.Double,System.Int32)">
+            <summary>
+            Creates a new instance of a normally distributed aleatorio value generator
+            using the specified media, standard deviation and seed.
+            </summary>
+            <param name="media">The average value produced by this generator</param>
+            <param name="desvioPadrao">The amount of variation in the values produced by this generator</param>
+            <param name="seed">A number used to calculate a starting value for the pseudo-aleatorio number
+            sequence. If a negative number is specified, the absolute value of the number
+            is used.</param>
+        </member>
+        <member name="M:APD.Util.DesfocagemGaussianaAleatoria.ProximoInteiro">
+            <summary>
+            Samples the distribution and returns a aleatorio integer
+            </summary>
+            <returns>A normally distributed aleatorio number rounded to the nearest integer</returns>
+        </member>
+        <member name="M:APD.Util.DesfocagemGaussianaAleatoria.Proximo">
+            <summary>
+            Samples the distribution
+            </summary>
+            <returns>A aleatorio sample from a normal distribution</returns>
+        </member>
+        <member name="T:APD.Util.Trend">
+            <summary>
+            Linear trend from slope and intercept. Predict y given any x value using the formula
+            y = slope * x + intercept.
+            </summary>
+        </member>
+        <member name="P:APD.Util.Trend.Slope">
+            <summary>
+            The change in y per unit of x.
+            </summary>
+        </member>
+        <member name="P:APD.Util.Trend.Intercept">
+            <summary>
+            The value of y when x is zero.
+            </summary>
+        </member>
+        <member name="M:APD.Util.Trend.Predict(System.Double)">
+            <summary>
+            Predicts a y value given any x value using the formula y = slope * x + intercept.
+            </summary>
+            <param name="ordinate">The x value</param>
+            <returns>The predicted y value</returns>
+        </member>
+        <member name="T:APD.Util.Utilitarios">
+            <summary>
+            Static class that contains timing and numerical utilities
+            </summary>
+        </member>
+        <member name="M:APD.Util.Utilitarios.ImprimirTempo(System.TimeSpan)">
+            <summary>
+            Format and print elapsed time returned by Stopwatch
+            </summary>
+        </member>
+        <member name="M:APD.Util.Utilitarios.TempoFormatado(System.TimeSpan)">
+            <summary>
+            TimeSpan pretty printer
+            </summary>
+            <param name="ts">The TimeSpan to format</param>
+            <returns>A formatted string</returns>
+        </member>
+        <member name="M:APD.Util.Utilitarios.RetornarListaNomeDeImagens(System.String,System.Int32)">
+            <summary>
+            Repeatedly loop through all of the files in the source directory. This
+            enumerable has an infinite number of values.
+            </summary>
+            <param name="dirOrigem"></param>
+            <param name="numMaxImagens"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APD.Util.Utilitarios.RetornarNomeDeImagens(System.String,System.Int32)">
+            <summary>
+            Get names of image files in directory
+            </summary>
+            <param name="dirOrigem">Name of directory</param>
+            <param name="numMaxImagens">Maximum number of image file names to return</param>
+            <returns>List of image file names in directory (basenames not including directory path)</returns>
+        </member>
+        <member name="M:APD.Util.Utilitarios.Alcance(System.Int32)">
+            <summary>
+            Return array of floats for indices 0 .. count-1
+            </summary>
+        </member>
+        <member name="M:APD.Util.Utilitarios.GaussianaInversa(System.Double,System.Double,System.Double)">
+            <summary>
+            Calculates an approximation of the inverse of the cumulative normal distribution.
+            </summary>
+            <param name="distribuicaoCumulativa">The percentile as a fraction (.50 is the fiftieth percentile). 
+            Must be greater than 0 and less than 1.</param>
+            <param name="media">The underlying distribution's average (i.e., the value at the 50th percentile) (</param>
+            <param name="desvioPadrao">The distribution's standard deviation</param>
+            <returns>The value whose cumulative normal distribution (given media and stddev) is the percentile given as an argument.</returns>
+        </member>
+        <member name="M:APD.Util.Utilitarios.SementesAleatorias">
+            <summary>
+            Creates a seed that does not depend on the system clock. A unique value will be created with each invocation.
+            </summary>
+            <returns>An integer that can be used to seed a aleatorio generator</returns>
+            <remarks>This method is thread safe.</remarks>
+        </member>
+    </members>
+</doc>

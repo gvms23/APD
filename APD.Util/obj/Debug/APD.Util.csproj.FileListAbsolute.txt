@@ -1,0 +1,6 @@
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\bin\Debug\Utilities.XML
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\bin\Debug\Utilities.dll
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\bin\Debug\Utilities.pdb
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\obj\Debug\APD.Util.csprojResolveAssemblyReference.cache
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\obj\Debug\Utilities.dll
+C:\Users\Gabriel Vicente\Documents\Visual Studio 2017\Projects\APD\APD.Util\obj\Debug\Utilities.pdb
